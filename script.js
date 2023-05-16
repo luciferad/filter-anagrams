@@ -1,33 +1,14 @@
 function aclean(arr) {
-    let anagrams = new Set()
+    let map = new Map();
 
-    for(let word of arr) {
-        let wordAnagram = (Array.from(word.toLowerCase())).sort().join('');
-        anagrams.add(wordAnagram);
+    for (let word of arr) {
+        let sorted = Array.from(word.toLowerCase()).sort().join('');
+        map.set(sorted, word);
     }
 
-    let wordOrganized = new Map();
-
-    for (let anagram of anagrams) {
-        let wordsArr = [];
-        for(let word of arr) {
-            if ( anagram === (Array.from(word.toLowerCase())).sort().join('') ) {
-                wordsArr.push(word);
-            }
-        }
-
-        wordOrganized.set(anagram, wordsArr);
-    }
-
-    let result = [];
-    
-    wordOrganized.forEach( value => {
-        result.push(value[Math.floor(Math.random() * value.length)])
-    });
-
-    return result;
+    return Array.from(map.values());
 }
 
 let arr = ['nap', 'teacher', 'cheater', 'PAN', 'ear', 'era', 'hectare'];
 
-alert(aclean(arr));
+console.log(aclean(arr));
